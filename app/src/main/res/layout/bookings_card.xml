@@ -21,43 +21,53 @@
             >
 
             <TextView
-                android:id="@+id/ridePostLocation"
+                android:id="@+id/card_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Ride Location"
+                android:text="DATE"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ridePostWhereTo"
+                android:id="@+id/card_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ridePostLocation"
+                android:layout_below="@+id/card_date"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Ride where to"
+                android:text="TIME"
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/ridePostFare"
+                android:id="@+id/card_source"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ridePostWhereTo"
+                android:layout_below="@+id/card_time"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Ride Fare"
+                android:text="SOURCE"
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/ridePostSeatsLeft"
+                android:id="@+id/card_destination"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ridePostFare"
+                android:layout_below="@+id/card_source"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Seats Left"
+                android:text="DESTINATION"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/card_fare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card_destination"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="FARE"
                 android:textSize="16sp" />
 
         </RelativeLayout>

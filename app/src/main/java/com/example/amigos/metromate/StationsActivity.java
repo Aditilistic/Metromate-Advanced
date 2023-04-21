@@ -10,7 +10,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -29,6 +35,7 @@ public class StationsActivity extends AppCompatActivity {
     private TextView stations_journey;
     private TextView stations_path_number;
     private Button stations_proceed_button;
+    /*DatabaseReference databaseReference, userDatabaseReference;*/
 
     private int randomNum;
 
@@ -47,6 +54,8 @@ public class StationsActivity extends AppCompatActivity {
         stations_journey = findViewById(R.id.stations_journey);
 
         route_recycler.setLayoutManager(new LinearLayoutManager(StationsActivity.this));
+
+        /*databaseReference = FirebaseDatabase.getInstance().getReference("RidePosts");*/
 
         RecyclerCardAdapter adapter = new RecyclerCardAdapter(StationsActivity.this, arrCard);
         route_recycler.setAdapter(adapter);
@@ -155,6 +164,18 @@ public class StationsActivity extends AppCompatActivity {
         stations_proceed_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+               /* BookingsObject bookingsObject = new BookingsObject(time,time, fare, source, destination);
+                String key = databaseReference.push().getKey();
+                databaseReference.child(key).setValue(bookingsObject);
+
+                *//*card_date.setText("");
+                card_time.setText("");
+                card_source.setText("");
+                card_destination.setText("");
+                card_fare.setText("");*//*
+                Toast.makeText(StationsActivity.this, "Ticket Booked Successfully", Toast.LENGTH_SHORT).show();*/
+
                 Intent intent = new Intent(StationsActivity.this, ReceiptActivity.class);
 
                 intent.putExtra("fare2",fare);
@@ -171,6 +192,8 @@ public class StationsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
 
   /*stations_back_button = findViewById(R.id.stations_back_button);
         stations_back_button.setOnClickListener(new View.OnClickListener() {

@@ -17,6 +17,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -29,10 +32,8 @@ public class ReceiptActivity extends AppCompatActivity {
     private TextView receipt_date;
     private TextView receipt_time;
     private TextView receipt_fare;
-
     private Button receipt_download;
-
-
+    DatabaseReference databaseReference, userDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,8 @@ public class ReceiptActivity extends AppCompatActivity {
 
         receipt_ticketNumber = findViewById(R.id.receipt_ticketNumber);
         receipt_download = findViewById(R.id.receipt_download);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("BookingsPosts");
 
         Intent intent = getIntent();
 
@@ -66,6 +69,17 @@ public class ReceiptActivity extends AppCompatActivity {
         receipt_time.setText("Time: "+ timeString);
         receipt_journey.setText("Journey: "+source+" to "+destination);
         receipt_fare.setText("Fare: "+fare2+" Rupees");
+
+        BookingsObject bookingsObject = new BookingsObject(source, destination, fare2, dateString, timeString);
+        String key = databaseReference.push().getKey();
+        databaseReference.child(key).setValue(bookingsObject);
+
+                /*card_date.setText("");
+                card_time.setText("");
+                card_source.setText("");
+                card_destination.setText("");
+                card_fare.setText("");*/
+        Toast.makeText(ReceiptActivity.this, "Ticket Booked Successfully", Toast.LENGTH_SHORT).show();
 
         receipt_download.setOnClickListener(new View.OnClickListener() {
             @Override

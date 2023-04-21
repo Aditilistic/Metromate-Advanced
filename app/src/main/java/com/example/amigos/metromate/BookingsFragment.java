@@ -18,51 +18,49 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.obsidian.sharewheel.adaptors.RidePostAdaptor;
-import com.obsidian.sharewheel.objects.RidePost;
 
 import java.util.ArrayList;
 
-public class MyBooking_fragment extends Fragment {
+public class BookingsFragment extends Fragment {
 
     DatabaseReference databaseReference;
-    ArrayList<RidePost> usersRidePosts;
-    RecyclerView myBookingRecyclerView;
+    ArrayList<BookingsObject> usersBookings;
+    RecyclerView bookingsRecyclerView;
 
-    public MyBooking_fragment() {
-        // Required empty public constructor
+    public BookingsFragment() {
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_booking_fragment, container, false);
+        return inflater.inflate(R.layout.fragment_bookings, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("RidePosts");
-        usersRidePosts = new ArrayList<>();
-        myBookingRecyclerView = view.findViewById(R.id.myBookingRecyclerView);
+        databaseReference = FirebaseDatabase.getInstance().getReference("BookingsPosts");
+        usersBookings = new ArrayList<>();
+        bookingsRecyclerView = view.findViewById(R.id.bookingsRecyclerView);
 
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                usersRidePosts.clear();
+                usersBookings.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    RidePost ridePost = dataSnapshot.getValue(RidePost.class);
-                    if (ridePost.getId().equals(userId)) {
-                        usersRidePosts.add(ridePost);
+                    BookingsObject bookingsObject = dataSnapshot.getValue(BookingsObject.class);
+                    if (bookingsObject.getId().equals(userId)) {
+                        usersBookings.add(bookingsObject);
                     }
                 }
 
-                myBookingRecyclerView.setAdapter(new RidePostAdaptor(usersRidePosts));
-                myBookingRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                bookingsRecyclerView.setAdapter(new BookingsPostAdapter(usersBookings));
+                bookingsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             }
 
             @Override
